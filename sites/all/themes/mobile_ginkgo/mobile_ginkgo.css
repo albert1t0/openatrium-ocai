@@ -1,0 +1,140 @@
+#admin-toolbar {
+  display: none;
+}
+
+body.page-node #navigation {
+  display: none !important;
+}
+
+#navigation div.limiter {
+  padding-top: 0px;
+  height: 40px;
+}
+
+#page div.limiter {
+  background-image: none;
+  width: 98%;
+  max-width: 98%;
+}
+
+#content,
+body.layout-wide #content,
+.form .column-main {
+  width: 100%;
+}
+
+#content div.page-region,
+.form .column-main {
+  padding-right: 20px;
+  padding-bottom: 0;
+}
+
+#right,
+.form .column-side {
+  float: none;
+  clear: both;
+  width: 100%;
+}
+
+#right div.page-region {
+  padding-left: 20px;
+  padding-top: 0;
+}
+
+.form .column-side {
+  padding-right: 20px;
+}
+
+.form .column-side .column-wrapper {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+#space-tools {
+  top: 4px;
+}
+
+#space-tools .dropdown-blocks .block-atrium .block-title {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+#features-menu {
+  left: 0px;
+  height: auto;
+  line-height: auto;
+  position: relative;
+}
+
+#features-menu li,
+#features-menu li.active,
+#features-menu li a {
+  background: none;
+  border: none;
+}
+
+#features-menu li a {
+  overflow: visible;
+  border-bottom: 1px solid #EEE;
+}
+
+#features-menu li.last a {
+  border-bottom: none;
+}
+
+#block-atrium-features-menu {
+  top: 5px;
+  height: auto !important;
+}
+
+#block-atrium-features-menu div.block-content {
+  left: 5px;
+  border-top-right-radius: 5px 5px;
+  border-top-left-radius: 0px 0px;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-top-right-radius: 0px;
+}
+
+#block-atrium-features-menu div.block-title .icon {
+  width: 22px;
+  height: 22px;
+  background-image: url('go-next.png');
+}
+
+#features-menu li a span.label,
+#features-menu li a:hover span.label,
+#features-menu li a.active span.label {
+  display: block;
+  width: auto;
+  padding: 0px 5px 0px 10px;
+  line-height: 40px;
+  font-weight: normal;
+  font-size: 16px;
+  color: #333;
+  text-shadow: none;
+  position: absolute;
+  top: 6px;
+  left: 58px;
+}
+
+#block-atrium-welcome_member embed {
+  display: none;
+}
+
+/* fix views grids */
+table.views-view-grid {
+  border: none;
+}
+
+table.views-view-grid tr {
+  border: none;
+}
+
+table.views-view-grid td.col-1,
+table.views-view-grid td.col-2,
+table.views-view-grid td.col-3 {
+  width: 100% !important;
+  float: left;
+  border-bottom: none;
+}

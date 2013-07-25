@@ -1,0 +1,5 @@
+sites/*/files
+sites/*/settings.php
+sites/sites.old
+.idea
+
