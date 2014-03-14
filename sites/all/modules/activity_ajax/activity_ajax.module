@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+
+function activity_ajax_menu(){
+  $items['activity_ajax/check_updates']= array(
+    'title' => 'Check Updates',
+    'page callback' => 'activity_ajax_check_updates',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/settings/activity_ajax']=array(
+    'title'=>'Ajax activity auto-reload',
+    'despcrition'=> 'Configuration for the ajax auto-reload for the recent activity block',
+    'page callback'=>'drupal_get_form',
+    'page arguments'=>array('activity_ajax_settings'),
+    'access arguments'=>array('access administration pages'),
+    'type'=>MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Build form
+ */
+
+function activity_ajax_settings(){
+  $form = array();
+  $form['activity_ajax_interval_time']= array(
+    '#type'=>'textfield',
+    '#title'=>t('Time (milliseconds)'),
+    '#description'=>t('The time in milliseconds to check if there is new activity'),
+    '#size'=>7,
+    '#maxlength'=>7,
+    '#default_value'=>variable_get('activity_ajax_interval_time',30000),
+    '#required'=> TRUE,
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_init().
+ */
+
+function activity_ajax_init(){
+  drupal_add_js(array(
+    'activity_ajax'=>array(
+      'reloadTime'=>variable_get('activity_ajax_interval_time',30000)
+    )
+  ),'setting');
+  drupal_add_js(drupal_get_path('module','activity_ajax').'/js/activity_ajax.js');
+}
+
+/**
+ * Returns if there has been new activity since last check.
+ */
+
+function activity_ajax_check_updates(){
+  //if there is no last check it is forced to reload (timestamp =0)
+  $last_check = isset($_COOKIE['last_activity_check'])? intval($_COOKIE['last_activity_check']) : 0;
+  //if there is no activity there is no reload (timestamp=0)
+  $last_activity = intval(variable_get('last_activity',0));
+  $update = FALSE;
+  //if there has been new activity a reload is performed
+  if($last_check < $last_activity){
+    $update = TRUE;
+  }
+  $output = array(
+    'last_activity' => $last_activity,
+    'update' => $update,
+  );
+
+  drupal_json($output);
+
+}
+
+/**
+ * Implements hook_nodeapi().
+ */
+
+function activity_ajax_nodeapi(&$node, $op , $teaser= NULL, $page= NULL){
+  //posibly check for node types
+  switch ($op){
+    case 'insert':
+      variable_set('last_activity',$node->created);
+      break;
+    case 'update':
+      variable_set('last_activity',$node->changed);
+      break;
+  }
+
+}
+
+/**
+ * Implements hook_comment().
+ */
+
+function activity_ajax_comment(&$a1, $op){
+  //posibly check node type
+  switch ($op){
+    case 'insert':
+    case 'update':
+      variable_set('last_activity',time());
+  }
+}

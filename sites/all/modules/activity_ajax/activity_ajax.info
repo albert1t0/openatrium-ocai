@@ -1,0 +1,5 @@
+name = Recent Activity Ajax
+package = Other
+description = OpenAtrium recent activity block is reloaded by ajax.
+core = 6.x
+dependencies[] = jquery_update
